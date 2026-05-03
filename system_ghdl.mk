@@ -125,8 +125,8 @@ test:
 ###############################################################
 .PHONY : dir
 dir: clean
-	@test -d $(OUT_DIR)    || mkdir $(OUT_DIR)
-	@test -d $(IMAGES_DIR) || mkdir $(IMAGES_DIR)
+	@test -d $(OUT_DIR)    || mkdir -p $(OUT_DIR)
+	@test -d $(IMAGES_DIR) || mkdir -p $(IMAGES_DIR)
 
 ###############################################################
 #### Load the Source Code #####################################
