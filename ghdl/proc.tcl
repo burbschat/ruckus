@@ -128,8 +128,9 @@ proc loadSource args {
          } else {
             puts "\n\n\n\n\n********************************************************"
             puts "loadSource: $params(-path) does not have a \[.vhd,.vhdl,.v,.vh,.sv\] file extension"
+            puts "This will be ignored for GHDL simulation!"
             puts "********************************************************\n\n\n\n\n"
-            exit -1
+            # exit -1
          }
       }
    # Load all files from a directory
@@ -154,10 +155,45 @@ proc loadSource args {
             }
          } else {
             puts "\n\n\n\n\n********************************************************"
-            puts "loadSource: $params(-dir) directory does not have any \[.vhd,.vhdl,.v,.vh,.sv,.dat,.coe,.mem,.edif,.dcp\] files"
+            puts "loadSource: $params(-dir) directory does not have any \[.vhd,.vhdl,.v,.vh,.sv\] files"
+            puts "This will be ignored for GHDL simulation!"
             puts "********************************************************\n\n\n\n\n"
-            exit -1
+            # exit -1
          }
       }
    }
+}
+
+# Dummy version check that always succeeds
+proc VersionCheck { lockVersion {mustBeExact ""} } {
+   # Generate warning message
+   set warnMsg "\n\n*********************************************************\n"
+   set warnMsg "${warnMsg}Version check ignored for GHDL simulation!\n"
+   set warnMsg "${warnMsg}*********************************************************\n\n"
+   puts ${warnMsg}
+   return 0
+}
+
+# Dummy IP core load
+proc loadIpCore args {
+   return 0
+}
+
+# Dummy constraints load
+proc loadConstraints args {
+   return 0
+}
+
+# Dummy block design load
+proc loadBlockDesign args {
+   return 0
+}
+
+# Stubs for vivado commands that may be called in some ruckus.tcl
+foreach cmd {set_property current_project get_property get_runs get_filesets} {
+    if {![llength [info commands $cmd]]} {
+        proc $cmd {args} {
+            return ""
+        }
+    }
 }
