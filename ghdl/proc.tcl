@@ -190,7 +190,7 @@ proc loadBlockDesign args {
 }
 
 # Stubs for vivado commands that may be called in some ruckus.tcl
-foreach cmd {set_property current_project get_property get_runs get_filesets} {
+foreach cmd {set_property current_project get_property get_runs get_filesets set_msg_config} {
     if {![llength [info commands $cmd]]} {
         proc $cmd {args} {
             return ""
